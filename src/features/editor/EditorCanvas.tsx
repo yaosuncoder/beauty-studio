@@ -1,31 +1,41 @@
+import { Stage, Layer, Rect, Text } from 'react-konva'
 
-import { Layer, Rect, Stage, Text } from 'react-konva'
-
-export function EditorCanvas() {
+export default function EditorCanvas() {
   return (
-    <div className="overflow-hidden rounded-xl border bg-white shadow-sm">
-      <Stage width={800} height={500}>
+    <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
+      <Stage width={720} height={480}>
         <Layer>
           <Rect
             x={0}
             y={0}
-            width={800}
-            height={500}
-            fill="#f8e9e9"
+            width={720}
+            height={480}
+            fill="#ffffff"
           />
-          <Text
+
+          <Rect
             x={40}
             y={40}
+            width={640}
+            height={400}
+            stroke="#e2e8f0"
+            strokeWidth={2}
+          />
+
+          <Text
+            x={100}
+            y={100}
             text="Beauty Studio"
             fontSize={32}
-            fill="#4b252b"
+            fill="#0f172a"
           />
+
           <Text
-            x={40}
-            y={90}
-            text="Create your beauty campaign"
+            x={100}
+            y={150}
+            text="Create something beautiful."
             fontSize={18}
-            fill="#7b5257"
+            fill="#64748b"
           />
         </Layer>
       </Stage>
