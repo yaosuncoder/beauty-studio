@@ -1,9 +1,4 @@
 
-export type Point = {
-  x: number;
-  y: number;
-};
-
 export type BaseLayer = {
   id: string;
   x: number;
@@ -20,11 +15,10 @@ export type TextLayer = BaseLayer & {
 
 export type ImageLayer = BaseLayer & {
   type: "image";
+  assetId: string;
   src: string;
   width: number;
   height: number;
 };
 
 export type EditorLayer = TextLayer | ImageLayer;
-
-export type UploadedImage = Pick<ImageLayer, "src" | "width" | "height">;

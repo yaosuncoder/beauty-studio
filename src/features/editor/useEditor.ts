@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { updateLayer } from './updateLayer'
-import type { EditorLayer, UploadedImage } from '../../types/editor'
+import type { EditorLayer } from '../../types/editor'
+import type { LocalImageAsset } from '../../types/files'
 
 const initialLayers: EditorLayer[] = [
   {
@@ -28,16 +29,7 @@ const initialLayers: EditorLayer[] = [
 export function useEditor() {
   const [layers, setLayers] = useState<EditorLayer[]>(initialLayers)
   const [selectedLayerId, setSelectedLayerId] = useState<string>()
-  const imageUrls = useRef(new Set<string>())
   const selectedLayer = layers.find((layer) => layer.id === selectedLayerId)
-
-  useEffect(
-    () => () => {
-      imageUrls.current.forEach((src) => URL.revokeObjectURL(src))
-      imageUrls.current.clear()
-    },
-    [],
-  )
 
   const addText = useCallback(() => {
     const layer: EditorLayer = {
@@ -55,20 +47,20 @@ export function useEditor() {
     setSelectedLayerId(layer.id)
   }, [])
 
-  const addImage = useCallback((image: UploadedImage) => {
-    const scale = Math.min(1, 320 / image.width, 320 / image.height)
+  const addImage = useCallback((file: LocalImageAsset) => {
+    const scale = Math.min(1, 320 / file.width, 320 / file.height)
     const layer: EditorLayer = {
-      ...image,
+      assetId: file.id,
+      src: file.src,
       id: crypto.randomUUID(),
       type: 'image',
       x: 80,
       y: 80,
       rotation: 0,
-      width: image.width * scale,
-      height: image.height * scale,
+      width: file.width * scale,
+      height: file.height * scale,
     }
 
-    imageUrls.current.add(image.src)
     setLayers((currentLayers) => [...currentLayers, layer])
     setSelectedLayerId(layer.id)
   }, [])
@@ -79,12 +71,6 @@ export function useEditor() {
 
   const deleteLayer = useCallback(
     (layerId: string) => {
-      const layer = layers.find((currentLayer) => currentLayer.id === layerId)
-      if (layer?.type === 'image') {
-        URL.revokeObjectURL(layer.src)
-        imageUrls.current.delete(layer.src)
-      }
-
       setLayers((currentLayers) =>
         currentLayers.filter((currentLayer) => currentLayer.id !== layerId),
       )
@@ -92,6 +78,14 @@ export function useEditor() {
         currentId === layerId ? undefined : currentId,
       )
     },
+    [],
+  )
+
+  const isFileInUse = useCallback(
+    (fileId: string) =>
+      layers.some(
+        (layer) => layer.type === 'image' && layer.assetId === fileId,
+      ),
     [layers],
   )
 
@@ -133,5 +127,6 @@ export function useEditor() {
     selectLayer: setSelectedLayerId,
     changeLayer,
     deleteLayer,
+    isFileInUse,
   }
 }

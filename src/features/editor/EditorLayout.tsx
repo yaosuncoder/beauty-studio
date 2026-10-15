@@ -2,17 +2,22 @@ import { Download } from 'lucide-react'
 import EditorCanvas from './EditorCanvas'
 import EditorToolbar from './EditorToolbar'
 import PropertiesPanel from './PropertiesPanel'
-import type { EditorLayer, UploadedImage } from '../../types/editor'
+import type { EditorLayer } from '../../types/editor'
+import type { LocalImageAsset } from '../../types/files'
 
 type EditorLayoutProps = {
   layers: EditorLayer[]
   selectedLayer: EditorLayer | undefined
   selectedLayerId: string | undefined
   onAddText: () => void
-  onUploadImage: (image: UploadedImage) => void
+  onUploadImage: (asset: LocalImageAsset) => void
   onSelectLayer: (layerId: string) => void
   onChangeLayer: (layer: EditorLayer) => void
   onDeleteLayer: (layerId: string) => void
+  files: LocalImageAsset[]
+  onAddFileToCanvas: (file: LocalImageAsset) => void
+  onRemoveFile: (fileId: string) => void
+  isFileInUse: (fileId: string) => boolean
 }
 
 export default function EditorLayout({
@@ -24,6 +29,10 @@ export default function EditorLayout({
   onSelectLayer,
   onChangeLayer,
   onDeleteLayer,
+  files,
+  onAddFileToCanvas,
+  onRemoveFile,
+  isFileInUse,
 }: EditorLayoutProps) {
   return (
     <div className="flex h-screen flex-col bg-slate-100 text-slate-900">
@@ -43,6 +52,10 @@ export default function EditorLayout({
         <EditorToolbar
           onAddText={onAddText}
           onUploadImage={onUploadImage}
+          files={files}
+          onAddFileToCanvas={onAddFileToCanvas}
+          onRemoveFile={onRemoveFile}
+          isFileInUse={isFileInUse}
         />
 
         <section className="flex min-w-0 items-center justify-center overflow-auto p-6">

@@ -1,18 +1,27 @@
 import { Shapes, Type } from 'lucide-react'
+import type { LocalImageAsset } from '../../types/files'
+import FileList from './FileList'
 import ImageUpload from './ImageUpload'
-import type { UploadedImage } from '../../types/editor'
 
 type EditorToolbarProps = {
   onAddText: () => void
-  onUploadImage: (image: UploadedImage) => void
+  onUploadImage: (asset: LocalImageAsset) => void
+  files: LocalImageAsset[]
+  onAddFileToCanvas: (file: LocalImageAsset) => void
+  onRemoveFile: (fileId: string) => void
+  isFileInUse: (fileId: string) => boolean
 }
 
 export default function EditorToolbar({
   onAddText,
   onUploadImage,
+  files,
+  onAddFileToCanvas,
+  onRemoveFile,
+  isFileInUse,
 }: EditorToolbarProps) {
   return (
-    <aside className="border-r bg-white p-4">
+    <aside className="overflow-y-auto border-r bg-white p-4">
       <h2 className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
         Tools
       </h2>
@@ -35,6 +44,13 @@ export default function EditorToolbar({
           Elements
         </button>
       </div>
+
+      <FileList
+        files={files}
+        onAddToCanvas={onAddFileToCanvas}
+        onRemove={onRemoveFile}
+        isFileInUse={isFileInUse}
+      />
     </aside>
   )
 }
