@@ -26,3 +26,5 @@ export type ImageLayer = BaseLayer & {
 };
 
 export type EditorLayer = TextLayer | ImageLayer;
+
+export type UploadedImage = Pick<ImageLayer, "src" | "width" | "height">;

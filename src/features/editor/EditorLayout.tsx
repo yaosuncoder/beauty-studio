@@ -2,13 +2,14 @@ import { Download } from 'lucide-react'
 import EditorCanvas from './EditorCanvas'
 import EditorToolbar from './EditorToolbar'
 import PropertiesPanel from './PropertiesPanel'
-import type { EditorLayer } from '../../types/editor'
+import type { EditorLayer, UploadedImage } from '../../types/editor'
 
 type EditorLayoutProps = {
   layers: EditorLayer[]
   selectedLayer: EditorLayer | undefined
   selectedLayerId: string | undefined
   onAddText: () => void
+  onUploadImage: (image: UploadedImage) => void
   onSelectLayer: (layerId: string) => void
   onChangeLayer: (layer: EditorLayer) => void
   onDeleteLayer: (layerId: string) => void
@@ -19,6 +20,7 @@ export default function EditorLayout({
   selectedLayer,
   selectedLayerId,
   onAddText,
+  onUploadImage,
   onSelectLayer,
   onChangeLayer,
   onDeleteLayer,
@@ -38,7 +40,10 @@ export default function EditorLayout({
       </header>
 
       <main className="grid min-h-0 flex-1 grid-cols-[220px_minmax(0,1fr)_260px]">
-        <EditorToolbar onAddText={onAddText} />
+        <EditorToolbar
+          onAddText={onAddText}
+          onUploadImage={onUploadImage}
+        />
 
         <section className="flex min-w-0 items-center justify-center overflow-auto p-6">
           <EditorCanvas

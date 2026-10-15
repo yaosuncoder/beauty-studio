@@ -31,6 +31,9 @@ npm run dev
 ```
 Open your browser and go to `http://localhost:3000` to see the application in action.
 
+The editor toolbar accepts PNG, JPEG, and WebP images up to 10 MB. Uploaded images are previewed locally in the editor.
+Select an image and drag a corner handle to resize it. Select any layer and press Delete or Backspace to remove it; keyboard deletion is disabled while editing a text or position field.
+
 ### Linting
 Run ESLint to check the project source and configuration:
 ```
@@ -46,11 +49,13 @@ beauty-studio
 │   │       ├── EditorCanvas.tsx      # Renders and selects canvas layers
 │   │       ├── EditorLayout.tsx      # Composes the editor shell and panels
 │   │       ├── EditorToolbar.tsx     # Left-side editor tools
+│   │       ├── ImageUpload.tsx       # Validates and previews uploaded images
 │   │       ├── PropertiesPanel.tsx   # Edits or deletes the selected layer
-│   │       └── updateLayer.ts        # Updates a layer by ID
+│   │       ├── updateLayer.ts        # Updates a layer by ID
+│   │       └── useEditor.ts          # Owns editor state and layer actions
 │   ├── types
 │   │   └── editor.ts                 # Shared editor layer types
-│   ├── App.tsx                       # Owns editor state and actions
+│   ├── App.tsx                       # Connects editor state to the layout
 │   ├── main.tsx                      # Entry point for the React application
 │   ├── index.css                     # Global CSS styles
 │   └── vite-env.d.ts                 # TypeScript definitions for Vite

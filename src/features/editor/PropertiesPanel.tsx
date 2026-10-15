@@ -69,31 +69,29 @@ export default function PropertiesPanel({
       </label>
 
       {selectedLayer.type === "text" && (
-        <>
-          <label className="block text-sm">
-            Text content
-            <input
-              value={selectedLayer.text}
-              onChange={(event) =>
-                onChange({
-                  ...selectedLayer,
-                  text: event.target.value,
-                })
-              }
-              className="mt-1 w-full rounded-lg border border-slate-200 p-2"
-            />
-          </label>
-
-          <button
-            type="button"
-            onClick={() => onDelete(selectedLayer.id)}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
-          >
-            <Trash2 size={16} />
-            Delete text
-          </button>
-        </>
+        <label className="block text-sm">
+          Text content
+          <input
+            value={selectedLayer.text}
+            onChange={(event) =>
+              onChange({
+                ...selectedLayer,
+                text: event.target.value,
+              })
+            }
+            className="mt-1 w-full rounded-lg border border-slate-200 p-2"
+          />
+        </label>
       )}
+
+      <button
+        type="button"
+        onClick={() => onDelete(selectedLayer.id)}
+        className="flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+      >
+        <Trash2 size={16} />
+        Delete {selectedLayer.type}
+      </button>
     </aside>
   );
 }
