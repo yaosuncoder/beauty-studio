@@ -9,4 +9,3 @@ export function updateLayer(
     layer.id === updatedLayer.id ? updatedLayer : layer,
   );
 }
- s

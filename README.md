@@ -7,7 +7,7 @@ Beauty Studio is a React application built with TypeScript and Vite. This projec
 
 ### Prerequisites
 Make sure you have the following installed:
-- Node.js (version 14 or higher)
+- Node.js (`^20.19.0` or `>=22.12.0`, as required by Vite 8)
 - npm (comes with Node.js)
 
 ### Installation
@@ -41,10 +41,19 @@ npm run lint
 ```
 beauty-studio
 ├── src
-│   ├── App.tsx          # Main application component
-│   ├── main.tsx         # Entry point for the React application
-│   ├── index.css        # Global CSS styles
-│   └── vite-env.d.ts    # TypeScript definitions for Vite
+│   ├── features
+│   │   └── editor
+│   │       ├── EditorCanvas.tsx      # Renders and selects canvas layers
+│   │       ├── EditorLayout.tsx      # Composes the editor shell and panels
+│   │       ├── EditorToolbar.tsx     # Left-side editor tools
+│   │       ├── PropertiesPanel.tsx   # Edits or deletes the selected layer
+│   │       └── updateLayer.ts        # Updates a layer by ID
+│   ├── types
+│   │   └── editor.ts                 # Shared editor layer types
+│   ├── App.tsx                       # Owns editor state and actions
+│   ├── main.tsx                      # Entry point for the React application
+│   ├── index.css                     # Global CSS styles
+│   └── vite-env.d.ts                 # TypeScript definitions for Vite
 ├── public
 │   └── favicon.svg      # Favicon for the application
 ├── package.json         # npm configuration file
