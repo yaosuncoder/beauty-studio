@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Image as KonvaImage, Layer, Rect, Stage, Text, Transformer } from 'react-konva'
 import type Konva from 'konva'
-import type { EditorLayer, ImageLayer } from '../../types/editor'
+import type { EditorLayer, ImageLayer } from '../../../types/editor'
 
 type EditorCanvasProps = {
   layers: EditorLayer[]
@@ -59,6 +59,7 @@ function CanvasImage({
         width={layer.width}
         height={layer.height}
         rotation={layer.rotation}
+        opacity={layer.opacity}
         draggable
         onClick={onSelect}
         onTap={onSelect}
@@ -162,6 +163,7 @@ export default function EditorCanvas({
                 text={layer.text}
                 fontSize={layer.fontSize}
                 fill={layer.fill}
+                opacity={layer.opacity}
                 draggable
                 onClick={() => onSelectLayer(layer.id)}
                 onTap={() => onSelectLayer(layer.id)}

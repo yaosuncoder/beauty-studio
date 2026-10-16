@@ -11,6 +11,7 @@ const initialLayers: EditorLayer[] = [
     x: 200,
     y: 100,
     rotation: 0,
+    opacity: 1,
     fontSize: 32,
     fill: '#0f172a',
   },
@@ -21,6 +22,7 @@ const initialLayers: EditorLayer[] = [
     x: 100,
     y: 150,
     rotation: 0,
+    opacity: 1,
     fontSize: 18,
     fill: '#64748b',
   },
@@ -39,6 +41,7 @@ export function useEditor() {
       x: 100,
       y: 100,
       rotation: 0,
+      opacity: 1,
       fontSize: 24,
       fill: '#0f172a',
     }
@@ -57,6 +60,7 @@ export function useEditor() {
       x: 80,
       y: 80,
       rotation: 0,
+      opacity: 1,
       width: file.width * scale,
       height: file.height * scale,
     }

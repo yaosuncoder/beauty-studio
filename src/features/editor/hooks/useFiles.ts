@@ -1,6 +1,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { LocalImageAsset } from "../../types/files";
+import type { LocalImageAsset } from "../../../types/files";
 
 export function useFiles() {
   const [files, setFiles] = useState<LocalImageAsset[]>([]);

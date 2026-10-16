@@ -1,6 +1,6 @@
 
-import { Settings2, Trash2 } from "lucide-react";
-import type { EditorLayer } from "../../types/editor";
+import { Trash2 } from "lucide-react";
+import type { EditorLayer } from "../../../types/editor";
 
 type PropertiesPanelProps = {
   selectedLayer: EditorLayer | undefined;
@@ -15,24 +15,18 @@ export default function PropertiesPanel({
 }: PropertiesPanelProps) {
   if (!selectedLayer) {
     return (
-      <aside className="h-full space-y-5 border-l bg-white p-5">
-        <div className="flex items-center gap-2">
-          <Settings2 size={18} />
-          <h2 className="font-semibold">Properties</h2>
-        </div>
+      <section className="space-y-4 p-4">
+        <h2 className="text-sm font-semibold">Properties</h2>
         <p className="text-sm text-slate-500">
           Select a layer to edit its properties.
         </p>
-      </aside>
+      </section>
     );
   }
 
   return (
-    <aside className="h-full space-y-5 border-l bg-white p-5">
-      <div className="flex items-center gap-2">
-        <Settings2 size={18} />
-        <h2 className="font-semibold">Properties</h2>
-      </div>
+    <section className="space-y-4 p-4">
+      <h2 className="text-sm font-semibold">Properties</h2>
 
       <p className="text-sm text-slate-500">
         Selected: {selectedLayer.type === "text" ? "Text" : "Image"}
@@ -68,6 +62,23 @@ export default function PropertiesPanel({
         />
       </label>
 
+      <label className="block text-sm">
+        Opacity · {Math.round(selectedLayer.opacity * 100)}%
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={Math.round(selectedLayer.opacity * 100)}
+          onChange={(event) =>
+            onChange({
+              ...selectedLayer,
+              opacity: Number(event.target.value) / 100,
+            })
+          }
+          className="mt-2 w-full accent-blue-600"
+        />
+      </label>
+
       {selectedLayer.type === "text" && (
         <label className="block text-sm">
           Text content
@@ -84,6 +95,41 @@ export default function PropertiesPanel({
         </label>
       )}
 
+      {selectedLayer.type === "image" && (
+        <>
+          <label className="block text-sm">
+            Width
+            <input
+              type="number"
+              min="20"
+              value={Math.round(selectedLayer.width)}
+              onChange={(event) =>
+                onChange({
+                  ...selectedLayer,
+                  width: Math.max(20, Number(event.target.value)),
+                })
+              }
+              className="mt-1 w-full rounded-lg border border-slate-200 p-2"
+            />
+          </label>
+          <label className="block text-sm">
+            Height
+            <input
+              type="number"
+              min="20"
+              value={Math.round(selectedLayer.height)}
+              onChange={(event) =>
+                onChange({
+                  ...selectedLayer,
+                  height: Math.max(20, Number(event.target.value)),
+                })
+              }
+              className="mt-1 w-full rounded-lg border border-slate-200 p-2"
+            />
+          </label>
+        </>
+      )}
+
       <button
         type="button"
         onClick={() => onDelete(selectedLayer.id)}
@@ -92,6 +138,6 @@ export default function PropertiesPanel({
         <Trash2 size={16} />
         Delete {selectedLayer.type}
       </button>
-    </aside>
+    </section>
   );
 }

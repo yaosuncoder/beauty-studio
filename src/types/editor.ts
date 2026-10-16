@@ -4,6 +4,7 @@ export type BaseLayer = {
   x: number;
   y: number;
   rotation: number;
+  opacity: number;
 };
 
 export type TextLayer = BaseLayer & {
