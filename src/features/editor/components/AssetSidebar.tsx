@@ -1,6 +1,7 @@
 
 import { ImagePlus, Trash2, Upload } from "lucide-react";
 import type { LocalImageAsset } from "../../../types/files";
+import { formatFileSize } from "../../../utils/formatFileSize";
 
 type AssetSidebarProps = {
   open: boolean;
@@ -12,15 +13,6 @@ type AssetSidebarProps = {
   onSelectFile: (fileId: string) => void;
   onUpload: () => void;
 };
-
-function formatFileSize(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) {
-    return `${(bytes / 1024).toFixed(1)} KB`;
-  }
-
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
 
 export default function AssetSidebar({
   open,

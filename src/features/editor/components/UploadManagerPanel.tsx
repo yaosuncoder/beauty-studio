@@ -1,17 +1,12 @@
 import { ChevronDown, RotateCcw, X } from 'lucide-react'
 import type { UploadTask } from '../upload/types'
+import { formatFileSize } from '../../../utils/formatFileSize'
 
 type UploadManagerProps = {
   tasks: UploadTask[]
   onCancel: (taskId: string) => void
   onRetry: (taskId: string) => void
   onClose: () => void
-}
-
-function formatFileSize(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
 function statusLabel(task: UploadTask) {
